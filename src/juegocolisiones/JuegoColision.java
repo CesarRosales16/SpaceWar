@@ -1,5 +1,12 @@
 package juegocolisiones;
 
+import AbstractFactory.AbstractFactory;
+import AbstractFactory.FactoryProducer;
+import Enemigos.Enemigo;
+import Enemigos.FactoryEnemigos;
+import Naves.Nave;
+import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
@@ -18,14 +25,17 @@ public class JuegoColision extends BasicGame {
 
     private boolean choque = false;
     private boolean disparo = false;
-    private Image nave, alien, misil;
+    private boolean disparoDisponible = true;
+    private Image misil;
     private Input entrada;
-    private Rectangle naveRect, alienRect;
-    float alienX = 500, alienY =80;
-    float naveX = 0, naveY = 75;
     float misilX = 0, misilY = 0;
     final static int WIDHT = 640, HEIGHT = 400;
     int flagMov = 0;
+    public int puntuacion = 0;
+    AbstractFactory factory = FactoryProducer.getFactory("Naves");
+    Nave nave = factory.getNave(2);
+    ArrayList<Enemigo> listaEnemigos = new ArrayList<>();
+    ArrayList<Enemigo> listaEnemigosRemovidos = new ArrayList<>();
 
     /**
      * @param args the command line arguments
@@ -36,52 +46,64 @@ public class JuegoColision extends BasicGame {
 
     @Override
     public void init(GameContainer gc) throws SlickException {
-        nave = new Image("Img/Nave.gif");
-        alien = new Image("Img/Alien.gif");
         misil = new Image("Img/Misil.png");
         entrada = gc.getInput();
-        naveRect = new Rectangle(naveX, naveY, nave.getWidth(), nave.getHeight());
-        alienRect = new Rectangle(alienX, alienY, alien.getWidth(), alien.getHeight());
+        nave.Iniciar();
     }
 
     @Override
     public void update(GameContainer gc, int i) throws SlickException {
-        verificar();
         actualizarNaveJugador();
         actualizarNaveEnemigos();
+        spawnearEnemigos();
 
-        //    gc.sleep(18);
     }
 
     @Override
     public void render(GameContainer gc, Graphics grafico) throws SlickException {
-        nave.draw(naveX, naveY);
-        alien.draw(alienX, alienY);
-        //grafico.drawRect(alienRect.getX(), alienRect.getY(), alienRect.getWidth(), alienRect.getHeight());
-        //grafico.drawRect(naveRect.getX(), naveRect.getY(), naveRect.getWidth(), naveRect.getHeight());
-        if (choque) {
-            grafico.drawString("Has perdido!!!", 20, HEIGHT - 40);
-        }
+        grafico.drawString("Salud: " + nave.vida, 20, HEIGHT - 40);
+        grafico.drawString("Puntuacion: " + puntuacion, WIDHT - 150, HEIGHT - 40);
+        nave.imagen.draw(nave.posicionX, nave.posicionY);
+        grafico.drawRect(nave.Hitbox.getX(), nave.Hitbox.getY(), nave.Hitbox.getWidth(), nave.Hitbox.getHeight());
+
         if (disparo) {
             misil.draw(misilX, misilY);
             Rectangle misilRect = new Rectangle(misilX, misilY, misil.getWidth(), misil.getHeight());
-            //grafico.drawRect(misilRect.getX(), misilRect.getY(), misilRect.getWidth(), misilRect.getHeight());
-            misilX += 0.2;
+            grafico.drawRect(misilRect.getX(), misilRect.getY(), misilRect.getWidth(), misilRect.getHeight());
+            misilX += nave.velocidadBala;
             misilRect.setX(misilX);
-            if (misilRect.intersects(alienRect)) {
-                alien.destroy();
+            if (misilX>=WIDHT-20) {
+                disparoDisponible = true;
             }
+            disparar(misilRect);
         }
+        for (Enemigo e : listaEnemigos) {
+            e.imagen.draw(e.posicionX, e.posicionY);
+            grafico.drawRect(e.enemigoRect.getX(), e.enemigoRect.getY(), e.enemigoRect.getWidth(), e.enemigoRect.getHeight());
+        }
+        verificar(grafico);
 
     }
 
-    public static void main(String[] args) {
-        try {
-            AppGameContainer gc = new AppGameContainer(new JuegoColision());
-            gc.setDisplayMode(WIDHT, HEIGHT, false);
-            gc.start();
-        } catch (SlickException err) {
-            err.printStackTrace();
+    private void spawnearEnemigos() {
+        double randomNum = ThreadLocalRandom.current().nextDouble(0, 100);
+        int enemigo=1;
+        if (randomNum < 2) {
+            AbstractFactory factory = FactoryProducer.getFactory("Enemigos");
+            if(randomNum<0.3){
+                enemigo=2;
+            }
+            Enemigo enem = factory.getEnemigo(enemigo);
+            int posicionBrandom = ThreadLocalRandom.current().nextInt(0, HEIGHT);
+            enem.Iniciar();
+            enem.posicionY = posicionBrandom;
+            enem.enemigoRect.setY(enem.posicionY);
+            for (Enemigo e : listaEnemigos) {
+                if (enem.enemigoRect.intersects(e.enemigoRect)) {
+                    return;
+                }
+            }
+            listaEnemigos.add(enem);
         }
     }
 
@@ -91,38 +113,62 @@ public class JuegoColision extends BasicGame {
         }
         if (flagMov == 1) {
             if (entrada.isKeyDown(Input.KEY_SPACE)) {
-                naveY -= 0.15;
+                nave.posicionY -= nave.velocidad;
             } else {
-                naveY += 0.15;
+                nave.posicionY += nave.velocidad;
             }
-            if (entrada.isKeyPressed(Input.KEY_G)) {
-                disparar();
+            if (entrada.isKeyPressed(Input.KEY_F) && disparoDisponible) {
+                misilX = nave.imagen.getWidth();
+                misilY = nave.posicionY + (nave.imagen.getHeight() / 2);
                 disparo = true;
+                disparoDisponible = false;
             }
-            naveRect.setY(naveY);
+            nave.Hitbox.setY(nave.posicionY);
         }
 
     }
 
-    public void actualizarNaveEnemigos() {
-        if (!alien.isDestroyed()) {
-            alienX -= 0.1;
-            alienRect.setX(alienX);
+    private void actualizarNaveEnemigos() {
+
+        for (Enemigo e : listaEnemigos) {
+            e.posicionX -= e.velocidad;
+            e.enemigoRect.setX(e.posicionX);
         }
+
     }
 
-    private void verificar() throws SlickException {
-        if (naveY > HEIGHT - nave.getHeight() || naveY < 0) {  //FALTA VALIDAR LA COLISION CON PARTE INFERIOR!!
-            choque = true;
+    private Graphics verificar(Graphics grafico) throws SlickException {
+        if (nave.posicionY > HEIGHT - nave.imagen.getHeight() || nave.posicionY < 0) {
+            nave.vida -= 60;
         }
-        if (alienRect.intersects(naveRect)) {
-            choque = true;
-            alien.destroy();
+        for (Enemigo e : listaEnemigos) {
+            if (nave.Hitbox.intersects(e.enemigoRect)) {
+                nave.vida -= 60;
+            }
         }
+        if (nave.vida < 0) {
+            grafico.drawString("FIN DEL JUEGO", WIDHT / 2, HEIGHT / 2);
+        }
+        return grafico;
     }
 
-    public void disparar() throws SlickException {
-        misilX = nave.getWidth();
-        misilY = naveY+(nave.getHeight()/2);
+    public void disparar(Rectangle misilRect) throws SlickException {
+
+        for (Enemigo e : listaEnemigos) {
+            if (misilRect.intersects(e.enemigoRect)) {
+                e.vida-=nave.ataque;
+                disparo=false;
+                disparoDisponible = true;
+                if(e.vida<=0){
+                    puntuacion+=e.puntuacion;
+                    listaEnemigosRemovidos.add(e);
+                }
+            }
+        }
+        for (Enemigo e : listaEnemigosRemovidos) {
+            listaEnemigos.remove(e);
+            
+        }
+
     }
 }
