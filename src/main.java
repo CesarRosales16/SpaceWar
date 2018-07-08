@@ -1,4 +1,5 @@
 
+import game.Login;
 import juegocolisiones.JuegoColision;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
@@ -15,15 +16,8 @@ import org.newdawn.slick.SlickException;
  */
 public class main{
     public static void main(String[] args) {
-        try {
-            final int WIDHT = 640, HEIGHT = 400;
-            AppGameContainer gc = new AppGameContainer(new JuegoColision());
-            gc.setDisplayMode(WIDHT, HEIGHT, false);
-            gc.setVSync(true);
-            gc.start();
-        } catch (SlickException err) {
-            err.printStackTrace();
-        }
+        Login log = new Login();
+        log.setVisible(true);
     }
 }
 

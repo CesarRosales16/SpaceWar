@@ -3,6 +3,7 @@ package AbstractFactory;
 
 import Enemigos.Enemigo;
 import Naves.Nave;
+import PowerUps.PowerUp;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -17,4 +18,5 @@ import Naves.Nave;
  public interface AbstractFactory {
         Enemigo getEnemigo(int tipo);
         Nave getNave(int tipo);
+        PowerUp getPowerUp(int tipo);
 }

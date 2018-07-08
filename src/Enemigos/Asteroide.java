@@ -18,8 +18,8 @@ import org.newdawn.slick.geom.Rectangle;
 public class Asteroide extends Enemigo {
 
     @Override
-    public void Iniciar() {
-        this.posicionX = 640;
+    public void Iniciar(int WIDHT) {
+        this.posicionX=WIDHT;
         this.posicionY = 80;
         this.ataque = 100;
         this.vida = 100;

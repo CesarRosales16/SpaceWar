@@ -3,6 +3,7 @@ package AbstractFactory;
 
 import Enemigos.FactoryEnemigos;
 import Naves.FactoryNaves;
+import PowerUps.FactoryPowerUps;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -21,6 +22,8 @@ public class FactoryProducer {
                 return new FactoryEnemigos();     
             case "Naves":
                 return new FactoryNaves();
+            case "PowerUps":
+                return new FactoryPowerUps();
         }
         return null;
     }

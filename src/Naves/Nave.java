@@ -15,10 +15,11 @@ import org.newdawn.slick.geom.*;
  * @author Alejandro Olmedo <00097017@uca.edu.sv>
  */
 public abstract class Nave {
-    public int vida=0, ataque=0;
+    public int vida=0, ataque=0, precio=0;
     public double velocidad, velocidadBala;
     public float posicionX=0, posicionY=0;
     public Image imagen;
     public Rectangle Hitbox;
     abstract public void Iniciar();
+    abstract public void setearPrecio();
 }

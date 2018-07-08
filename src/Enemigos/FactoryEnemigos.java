@@ -7,6 +7,7 @@ package Enemigos;
 
 import AbstractFactory.AbstractFactory;
 import Naves.Nave;
+import PowerUps.PowerUp;
 
 /**
  *
@@ -25,6 +26,10 @@ public class FactoryEnemigos implements  AbstractFactory{
     }
     @Override
     public Nave getNave(int tipo){
+        return null;
+    }
+    @Override
+    public PowerUp getPowerUp(int tipo){
         return null;
     }
 }

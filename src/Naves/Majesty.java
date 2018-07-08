@@ -22,11 +22,16 @@ public class Majesty extends Nave{
         this.velocidadBala=4;
         this.posicionX=0;
         this.posicionY=200;
+        this.precio=10000;
         try {
             this.imagen= new Image("Img/Nave.gif");
         } catch (SlickException ex) {
             Logger.getLogger(Majesty.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.Hitbox= new Rectangle(this.posicionX, this.posicionY, imagen.getWidth(), imagen.getHeight());
+    }
+        @Override
+    public void setearPrecio() {
+        this.precio = 10000;
     }
 }

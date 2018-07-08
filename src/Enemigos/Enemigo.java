@@ -16,5 +16,5 @@ public abstract class Enemigo {
     public float posicionX=0, posicionY=0;
     public Image imagen;
     public Rectangle enemigoRect;
-    abstract public void Iniciar();
+    abstract public void Iniciar(int WIDHT);
 }

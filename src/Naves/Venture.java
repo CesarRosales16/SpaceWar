@@ -15,20 +15,28 @@ import org.newdawn.slick.geom.Rectangle;
  *
  * @author Alejandro Olmedo <00097017@uca.edu.sv>
  */
-public class Venture extends Nave{
+public class Venture extends Nave {
+
     @Override
-    public void Iniciar(){
-        this.vida=10000;
-        this.ataque=50;
-        this.velocidad=1.2;
-        this.velocidadBala=2.5;
-        this.posicionX=0;
-        this.posicionY=200;
+    public void Iniciar() {
+        this.vida = 10000;
+        this.ataque = 50;
+        this.velocidad = 1.2;
+        this.velocidadBala = 2.5;
+        this.precio = 0;
+        this.posicionX = 0;
+        this.posicionY = 200;
+
         try {
-            this.imagen= new Image("Img/Venture.gif");
+            this.imagen = new Image("Img/Venture.gif");
         } catch (SlickException ex) {
             Logger.getLogger(Majesty.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.Hitbox= new Rectangle(this.posicionX, this.posicionY, imagen.getWidth(), imagen.getHeight());
+        this.Hitbox = new Rectangle(this.posicionX, this.posicionY, imagen.getWidth(), imagen.getHeight());
+    }
+
+    @Override
+    public void setearPrecio() {
+        this.precio = 0;
     }
 }

@@ -8,6 +8,7 @@ package Naves;
 import AbstractFactory.AbstractFactory;
 import Enemigos.Alien;
 import Enemigos.Enemigo;
+import PowerUps.PowerUp;
 
 /**
  *
@@ -21,11 +22,17 @@ public class FactoryNaves implements AbstractFactory{
                 return new Venture();
             case 2:
                  return new Majesty();
+            case 3:
+                return new Imperial();
         }
         return null;
     }
     @Override
     public Enemigo getEnemigo(int tipo){
+        return null;
+    }
+    @Override
+    public PowerUp getPowerUp(int tipo){
         return null;
     }
 }
