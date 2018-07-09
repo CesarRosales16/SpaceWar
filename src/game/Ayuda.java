@@ -5,18 +5,22 @@
  */
 package game;
 
+import modelo.Usuarios;
+
 /**
  *
  * @author Danniela Renderos <00087717@uca.edu.sv>
  */
 public class Ayuda extends javax.swing.JFrame {
+    Usuarios jugador;
 
     /**
      * Creates new form Ayuda
      */
-    public Ayuda() {
+    public Ayuda(Usuarios u) {
+        this.jugador=u;
         initComponents();
-        setSize(805, 496);
+        setSize(805, 480);
     }
 
     /**
@@ -36,11 +40,16 @@ public class Ayuda extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/ayuda.png"))); // NOI18N
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(0, 10, 770, 450);
+        jLabel2.setBounds(0, 10, 770, 480);
 
-        jButton1.setText("Continuar");
+        jButton1.setText("MENÚ");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton1);
-        jButton1.setBounds(660, 400, 110, 23);
+        jButton1.setBounds(640, 370, 110, 23);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/giphy (5).gif"))); // NOI18N
         jLabel1.setText("jLabel1");
@@ -49,6 +58,10 @@ public class Ayuda extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+setVisible(false);
+         new Menu(jugador).setVisible(true);    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -77,12 +90,12 @@ public class Ayuda extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Ayuda().setVisible(true);
-            }
-        });
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new Ayuda(Usuarios u).setVisible(true);
+//            }
+//        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

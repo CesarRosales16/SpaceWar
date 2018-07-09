@@ -61,16 +61,16 @@ public class Store extends javax.swing.JFrame {
 
         n3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/3.gif"))); // NOI18N
         getContentPane().add(n3);
-        n3.setBounds(640, 240, 330, 200);
+        n3.setBounds(640, 190, 330, 200);
 
         n2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/1.gif"))); // NOI18N
         getContentPane().add(n2);
-        n2.setBounds(350, 250, 250, 190);
+        n2.setBounds(350, 200, 250, 190);
 
         n1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/134.gif"))); // NOI18N
         n1.setText("jLabel1");
         getContentPane().add(n1);
-        n1.setBounds(70, 230, 260, 200);
+        n1.setBounds(70, 180, 260, 200);
 
         ComprarVenture1.setText("VENTURE");
         ComprarVenture1.addActionListener(new java.awt.event.ActionListener() {
@@ -79,7 +79,7 @@ public class Store extends javax.swing.JFrame {
             }
         });
         getContentPane().add(ComprarVenture1);
-        ComprarVenture1.setBounds(150, 470, 100, 30);
+        ComprarVenture1.setBounds(150, 400, 100, 30);
 
         ComprarImperial3.setText("IMPERIAL");
         ComprarImperial3.addActionListener(new java.awt.event.ActionListener() {
@@ -88,7 +88,7 @@ public class Store extends javax.swing.JFrame {
             }
         });
         getContentPane().add(ComprarImperial3);
-        ComprarImperial3.setBounds(730, 470, 100, 30);
+        ComprarImperial3.setBounds(730, 400, 100, 30);
 
         jToggleButton3.setText("CONTINUAR");
         jToggleButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -97,7 +97,7 @@ public class Store extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jToggleButton3);
-        jToggleButton3.setBounds(800, 590, 130, 23);
+        jToggleButton3.setBounds(730, 570, 130, 23);
 
         ComprarMajesty2.setText("MAJESTY");
         ComprarMajesty2.addActionListener(new java.awt.event.ActionListener() {
@@ -106,35 +106,41 @@ public class Store extends javax.swing.JFrame {
             }
         });
         getContentPane().add(ComprarMajesty2);
-        ComprarMajesty2.setBounds(420, 470, 100, 30);
+        ComprarMajesty2.setBounds(440, 400, 100, 30);
 
-        ImperialPrecio.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        ImperialPrecio.setFont(new java.awt.Font("Old English Text MT", 0, 18)); // NOI18N
         ImperialPrecio.setForeground(new java.awt.Color(255, 255, 255));
+        ImperialPrecio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         getContentPane().add(ImperialPrecio);
-        ImperialPrecio.setBounds(750, 520, 70, 30);
+        ImperialPrecio.setBounds(730, 430, 100, 30);
         ImperialPrecio.setText("30000"+" L");
 
+        textoUsuario.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 18)); // NOI18N
         textoUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        textoUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         getContentPane().add(textoUsuario);
-        textoUsuario.setBounds(560, 570, 180, 30);
+        textoUsuario.setBounds(370, 570, 330, 30);
         textoUsuario.setText("Astronauta: "+jugador.getUsuario());
 
-        MajestyPrecio.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        MajestyPrecio.setFont(new java.awt.Font("Old English Text MT", 0, 18)); // NOI18N
         MajestyPrecio.setForeground(new java.awt.Color(255, 255, 255));
+        MajestyPrecio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         getContentPane().add(MajestyPrecio);
-        MajestyPrecio.setBounds(440, 510, 70, 30);
+        MajestyPrecio.setBounds(440, 430, 100, 30);
         MajestyPrecio.setText("10000"+" L");
 
-        VenturePrecio.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        VenturePrecio.setFont(new java.awt.Font("Old English Text MT", 0, 18)); // NOI18N
         VenturePrecio.setForeground(new java.awt.Color(255, 255, 255));
+        VenturePrecio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         getContentPane().add(VenturePrecio);
-        VenturePrecio.setBounds(170, 510, 70, 30);
+        VenturePrecio.setBounds(150, 430, 100, 30);
         VenturePrecio.setText("0"+" L");
 
-        textoLeks.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        textoLeks.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 18)); // NOI18N
         textoLeks.setForeground(new java.awt.Color(255, 255, 255));
+        textoLeks.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         getContentPane().add(textoLeks);
-        textoLeks.setBounds(310, 560, 180, 30);
+        textoLeks.setBounds(130, 570, 330, 30);
         textoLeks.setText("Lek disponibles: "+jugador.getLeks());
 
         fonfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/kkkk.gif"))); // NOI18N

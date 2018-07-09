@@ -8,7 +8,6 @@ import Naves.Nave;
 import PowerUps.PowerUp;
 import dao.UsuariosDao;
 import game.Fin;
-import game.Score;
 import game.TopTen;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
@@ -38,6 +37,7 @@ public class JuegoColision extends BasicGame {
     private boolean flagHechiza=true;
     private boolean disparoDisponible = true;
     private Image misil;
+    private Image fondo;
     private Input entrada;
     Nave nave;
     Usuarios jugador;
@@ -56,7 +56,6 @@ public class JuegoColision extends BasicGame {
     private SpriteSheet explosionSprite;
     private Animation explosionAnimation;
     private int contExplosion = 0;
-    private ArrayList<ExplosionGraphic> listaExplosiones = new ArrayList<>();
 
     /**
      * @param args the command line arguments
@@ -70,6 +69,7 @@ public class JuegoColision extends BasicGame {
     @Override
     public void init(GameContainer gc) throws SlickException {
         misil = new Image("Img/Misil.png");
+        fondo = new Image("Image/fondo.gif");
         entrada = gc.getInput();
         nave.Iniciar();
         explosion = new Image("Image/explosion sprite.png");
@@ -79,6 +79,7 @@ public class JuegoColision extends BasicGame {
 
     @Override
     public void update(GameContainer gc, int i) throws SlickException {
+        
         if (!gc.isPaused()) {
             actualizarNaveJugador();
             actualizarNaveEnemigos();
@@ -96,6 +97,7 @@ public class JuegoColision extends BasicGame {
 
     @Override
     public void render(GameContainer gc, Graphics grafico) throws SlickException {
+        fondo.draw(0, 0, WIDHT, HEIGHT);
         grafico.drawString("Salud: " + nave.vida, 20, HEIGHT - 40);
         grafico.drawString("Puntuacion: " + puntuacion, WIDHT - 200, HEIGHT - 40);
         grafico.drawString("Putuacion Maxima obtenida: " + jugador.getPuntuacionMaxima(), 20, 40);
@@ -104,7 +106,7 @@ public class JuegoColision extends BasicGame {
         nave.imagen.draw(nave.posicionX, nave.posicionY);
         //grafico.drawRect(nave.Hitbox.getX(), nave.Hitbox.getY(), nave.Hitbox.getWidth(), nave.Hitbox.getHeight());
         contExplosion++;
-        eliminar();
+//        eliminar();
         if (disparo) {
             misil.draw(misilX, misilY);
             Rectangle misilRect = new Rectangle(misilX, misilY, misil.getWidth(), misil.getHeight());
@@ -272,7 +274,7 @@ public class JuegoColision extends BasicGame {
         for (PowerUp p : listaPowerUps) {
             if (nave.Hitbox.intersects(p.Hitbox)) {
                 nave.vida += p.vidaExtra;
-                if(nave.velocidad-p.velocidadExtra>0){
+                if(nave.velocidad+p.velocidadExtra>0){
                     nave.velocidad += p.velocidadExtra;
                 }
                 nave.velocidadBala+= p.velocidaExtraMisil;
@@ -304,9 +306,7 @@ public class JuegoColision extends BasicGame {
                 if (e.vida <= 0) {
                     puntuacion += e.puntuacion;
                     listaEnemigosRemovidos.add(e);
-                    ExplosionGraphic explosion = new ExplosionGraphic();
-                    explosion.drawAnimation(explosionAnimation, misilRect.getX(), misilRect.getY());
-                    listaExplosiones.add(explosion);
+                    explosionAnimation.draw(misilRect.getX(), misilRect.getY());
                 }
             }
         }
@@ -317,16 +317,16 @@ public class JuegoColision extends BasicGame {
 
     }
 
-    public void eliminar() throws SlickException {
-        if (contExplosion == 100) {
-            for (int j = 0; j < listaExplosiones.size(); j++) {
-                ExplosionGraphic obj = listaExplosiones.get(j);
-                listaExplosiones.remove(j);
-
-                obj = null;
-            }
-            contExplosion = 0;
-
-        }
-    }
+//    public void eliminar() throws SlickException {
+//        if (contExplosion == 100) {
+//            for (int j = 0; j < listaExplosiones.size(); j++) {
+//                ExplosionGraphic obj = listaExplosiones.get(j);
+//                listaExplosiones.remove(j);
+//
+//                obj = null;
+//            }
+//            contExplosion = 0;
+//
+//        }
+//    }
 }

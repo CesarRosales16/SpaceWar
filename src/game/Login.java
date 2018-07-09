@@ -21,7 +21,7 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
-        setSize(700, 400);
+        setSize(547, 378);
     }
 
     /**
@@ -45,14 +45,13 @@ public class Login extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/SPACEmenu.png"))); // NOI18N
-        jLabel2.setText("jLabel2");
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/JJ.png"))); // NOI18N
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(50, 0, 590, 130);
+        jLabel2.setBounds(90, 20, 720, 130);
 
         CajaUsuario.setToolTipText("");
         getContentPane().add(CajaUsuario);
-        CajaUsuario.setBounds(160, 150, 220, 30);
+        CajaUsuario.setBounds(210, 140, 220, 30);
 
         CajaPassword.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         CajaPassword.addActionListener(new java.awt.event.ActionListener() {
@@ -61,17 +60,17 @@ public class Login extends javax.swing.JFrame {
             }
         });
         getContentPane().add(CajaPassword);
-        CajaPassword.setBounds(160, 190, 220, 30);
+        CajaPassword.setBounds(210, 180, 220, 30);
 
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("PASSWORD");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(80, 190, 110, 40);
+        jLabel3.setBounds(110, 180, 110, 40);
 
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("USUARIO");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(80, 150, 110, 40);
+        jLabel4.setBounds(110, 140, 110, 40);
 
         BLogin.setText("LOGIN");
         BLogin.addActionListener(new java.awt.event.ActionListener() {
@@ -80,7 +79,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
         getContentPane().add(BLogin);
-        BLogin.setBounds(200, 290, 120, 23);
+        BLogin.setBounds(130, 260, 120, 23);
 
         BRegistrar.setText("SIGN UP");
         BRegistrar.addActionListener(new java.awt.event.ActionListener() {
@@ -89,12 +88,12 @@ public class Login extends javax.swing.JFrame {
             }
         });
         getContentPane().add(BRegistrar);
-        BRegistrar.setBounds(380, 290, 110, 23);
+        BRegistrar.setBounds(310, 260, 110, 23);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/orig.gif"))); // NOI18N
         jLabel1.setText("jLabel1");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 0, 710, 380);
+        jLabel1.setBounds(-60, 0, 620, 380);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

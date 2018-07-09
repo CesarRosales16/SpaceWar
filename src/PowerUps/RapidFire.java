@@ -19,7 +19,7 @@ public class RapidFire extends PowerUp {
     @Override
     public void Iniciar(int WIDHT){
         this.posicionX = WIDHT;
-        this.velocidaExtraMisil=4;
+        this.velocidaExtraMisil=1.5;
         this.velocidad = 3.5;
         try {
             this.imagen = new Image("Img/RapidFire.png");

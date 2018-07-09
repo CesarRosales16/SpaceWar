@@ -69,10 +69,9 @@ public class TopTen extends javax.swing.JFrame {
         area.setText(total);
 
         getContentPane().add(scroll);
-        scroll.setBounds(70, 130, 400, 270);
+        scroll.setBounds(70, 150, 400, 230);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/JJJ.png"))); // NOI18N
-        jLabel2.setText("jLabel2");
         getContentPane().add(jLabel2);
         jLabel2.setBounds(100, 20, 360, 100);
 
@@ -83,7 +82,7 @@ public class TopTen extends javax.swing.JFrame {
             }
         });
         getContentPane().add(IrMenu);
-        IrMenu.setBounds(220, 440, 61, 23);
+        IrMenu.setBounds(220, 440, 110, 23);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/top.gif"))); // NOI18N
         jLabel1.setText("jLabel1");

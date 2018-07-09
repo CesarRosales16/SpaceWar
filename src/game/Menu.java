@@ -21,7 +21,7 @@ public class Menu extends javax.swing.JFrame {
     public Menu(Usuarios jugador) {
         this.jugador = jugador;
         initComponents();
-        setSize(698, 385);
+        setSize(550, 300);
 
     }
 
@@ -44,10 +44,10 @@ public class Menu extends javax.swing.JFrame {
 
         getContentPane().setLayout(null);
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/SPACEmenu.png"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/JJ.png"))); // NOI18N
         jLabel3.setText("jLabel3");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(50, 20, 610, 80);
+        jLabel3.setBounds(90, 10, 350, 80);
 
         conti.setText("Continue");
         conti.addActionListener(new java.awt.event.ActionListener() {
@@ -56,7 +56,7 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         getContentPane().add(conti);
-        conti.setBounds(170, 290, 90, 23);
+        conti.setBounds(90, 210, 90, 23);
 
         top.setText("Top 10");
         top.addActionListener(new java.awt.event.ActionListener() {
@@ -65,32 +65,36 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         getContentPane().add(top);
-        top.setBounds(300, 290, 90, 23);
+        top.setBounds(220, 210, 90, 23);
 
         help.setText("Help");
-        help.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                helpMouseClicked(evt);
+        help.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                helpActionPerformed(evt);
             }
         });
         getContentPane().add(help);
-        help.setBounds(430, 290, 80, 23);
+        help.setBounds(350, 210, 80, 23);
 
-        textoLeks.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        textoLeks.setFont(new java.awt.Font("Perpetua Titling MT", 0, 14)); // NOI18N
         textoLeks.setForeground(new java.awt.Color(255, 255, 255));
+        textoLeks.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textoLeks.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         getContentPane().add(textoLeks);
-        textoLeks.setBounds(370, 190, 180, 30);
+        textoLeks.setBounds(150, 130, 220, 30);
         textoLeks.setText("Lek disponibles: "+jugador.getLeks());
 
+        textoUsuario.setFont(new java.awt.Font("Perpetua Titling MT", 0, 14)); // NOI18N
         textoUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        textoUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textoUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         getContentPane().add(textoUsuario);
-        textoUsuario.setBounds(370, 150, 180, 30);
+        textoUsuario.setBounds(150, 90, 220, 30);
         textoUsuario.setText("Astronauta: "+jugador.getUsuario());
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/orig.gif"))); // NOI18N
-        jLabel1.setText("jLabel1");
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/o.gif"))); // NOI18N
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 0, 850, 393);
+        jLabel1.setBounds(0, -30, 850, 320);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -106,9 +110,9 @@ public class Menu extends javax.swing.JFrame {
         new TopTen(jugador).setVisible(true);
     }//GEN-LAST:event_topActionPerformed
 
-    private void helpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_helpMouseClicked
-
-        new Ayuda().setVisible(true);    }//GEN-LAST:event_helpMouseClicked
+    private void helpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpActionPerformed
+        new Ayuda(jugador).setVisible(true);
+    }//GEN-LAST:event_helpActionPerformed
 
     /**
      * @param args the command line arguments
