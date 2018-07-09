@@ -27,7 +27,7 @@ public class Imperial extends Nave {
         this.posicionY = 200;
         this.precio=30000;
         try {
-            this.imagen = new Image("Image/3.gif");
+            this.imagen = new Image("Img/Imperial.gif");
         } catch (SlickException ex) {
             Logger.getLogger(Majesty.class.getName()).log(Level.SEVERE, null, ex);
         }

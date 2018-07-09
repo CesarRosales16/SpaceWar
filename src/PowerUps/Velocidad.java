@@ -19,7 +19,7 @@ public class Velocidad extends PowerUp {
     @Override
     public void Iniciar(int WIDHT) {
         this.posicionX = WIDHT;
-        this.velocidadExtra=2.5;
+        this.velocidadExtra=1.5;
         this.velocidad = 3.5;
         try {
             this.imagen = new Image("Img/Velocidad.gif");

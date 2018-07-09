@@ -13,19 +13,19 @@ import org.newdawn.slick.geom.Rectangle;
 
 /**
  *
- * @author Alejandro Olmedo <00097017@uca.edu.sv>
+ * @author Cesar Rosales <00060917@uca.edu.sv>
  */
-public class Vida extends PowerUp{
-        @Override
-        public void Iniciar(int WIDHT){
-        this.posicionX=WIDHT;
-        this.vidaExtra=3000;
-        this.velocidad=3.5;
+public class SlowDown extends PowerUp{
+    @Override
+    public void Iniciar(int WIDHT){
+        this.posicionX = WIDHT;
+        this.velocidadExtra=-1;
+        this.velocidad = 3.5;
         try {
-            this.imagen = new Image("Img/Vida.gif");
+            this.imagen = new Image("Img/SlowDown.png");
         } catch (SlickException ex) {
             Logger.getLogger(Vida.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.Hitbox= new Rectangle(this.posicionX, this.posicionY, imagen.getWidth(), imagen.getHeight());
+        this.Hitbox = new Rectangle(this.posicionX, this.posicionY, imagen.getWidth(), imagen.getHeight());
     }
 }

@@ -25,7 +25,9 @@ public class UsuariosDao implements metodos<Usuarios> {
 
     private static final String SQL_INSERT = "INSERT INTO Usuarios (Usuario, Password, PuntuacionMaxima, Leks) VALUES(?,?,?,?)";
     private static final String SQL_UPDATE = "UPDATE Usuarios SET Password = ? WHERE usuario = ?";
-    private static final String SQL_UPDATELEKS = "UPDATE Usuarios SET Leks = Leks-? WHERE usuario = ?";
+    private static final String SQL_UPDATELEKS_RESTAR = "UPDATE Usuarios SET Leks = Leks - ? WHERE usuario = ?";
+    private static final String SQL_UPDATELEKS_SUMAR = "UPDATE Usuarios SET Leks = Leks + ? WHERE usuario = ?";
+    private static final String SQL_UPDATEPUNTUACIONMAXIMA = "UPDATE Usuarios SET PuntuacionMaxima = ? WHERE usuario = ?";
     private static final String SQL_DELETE = "DELETE FROM usuarios WHERE usuario = ?";
     private static final String SQL_READ = "SELECT * FROM usuarios WHERE usuario = ?";
     private static final String SQL_READALL = "SELECT * FROM usuarios";
@@ -94,7 +96,7 @@ public class UsuariosDao implements metodos<Usuarios> {
     public boolean updateLeks(int precio, Usuarios u) {
         PreparedStatement ps;
         try {
-            ps = con.getCnx().prepareStatement(SQL_UPDATELEKS);
+            ps = con.getCnx().prepareStatement(SQL_UPDATELEKS_RESTAR);
             ps.setInt(1, precio);
             ps.setString(2, u.getUsuario());
             if (ps.executeUpdate() > 0) {
@@ -108,7 +110,42 @@ public class UsuariosDao implements metodos<Usuarios> {
         }
         return false;
     }
-
+    @Override
+    public boolean updateLeksSumar(int puntuacion, Usuarios u) {
+        PreparedStatement ps;
+        try {
+            ps = con.getCnx().prepareStatement(SQL_UPDATELEKS_SUMAR);
+            ps.setInt(1, puntuacion);
+            ps.setString(2, u.getUsuario());
+            if (ps.executeUpdate() > 0) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            con.cerrarConexion();
+        }
+        return false;
+    }
+    @Override
+    public boolean updatePuntuacionMaxima(int puntuacionMaxima, Usuarios u) {
+        PreparedStatement ps;
+        try {
+            ps = con.getCnx().prepareStatement(SQL_UPDATEPUNTUACIONMAXIMA);
+            ps.setInt(1, puntuacionMaxima);
+            ps.setString(2, u.getUsuario());
+            if (ps.executeUpdate() > 0) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            con.cerrarConexion();
+        }
+        return false;
+    }
     @Override
     public Usuarios read(Object key) {
         Usuarios u = null;

@@ -17,6 +17,8 @@ public interface metodos <Generic>{
     public boolean delete (Object key);
     public boolean updatePassword (Generic c);
     public boolean updateLeks (int precio, Usuarios u);
+    public boolean updateLeksSumar (int puntuacion, Usuarios u);
+    public boolean updatePuntuacionMaxima(int puntuacionMaxima, Usuarios u);
     
     public Generic read(Object key);
     public ArrayList<Generic> readAll();

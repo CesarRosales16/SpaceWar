@@ -21,7 +21,7 @@ public class Asteroide extends Enemigo {
     public void Iniciar(int WIDHT) {
         this.posicionX=WIDHT;
         this.posicionY = 80;
-        this.ataque = 100;
+        this.ataque = 80;
         this.vida = 100;
         this.velocidad = 2;
         this.puntuacion=500;

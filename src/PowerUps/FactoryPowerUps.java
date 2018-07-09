@@ -16,26 +16,33 @@ import Naves.Venture;
  *
  * @author Alejandro Olmedo <00097017@uca.edu.sv>
  */
-public class FactoryPowerUps implements AbstractFactory{
+public class FactoryPowerUps implements AbstractFactory {
+
     @Override
-    public PowerUp getPowerUp(int tipo){
-        switch(tipo){
+    public PowerUp getPowerUp(int tipo) {
+        switch (tipo) {
             case 1:
                 return new Coin();
             case 2:
-                 return new Velocidad();
+                return new Velocidad();
             case 3:
                 return new Vida();
+            case 4:
+                return new RapidFire();
+            case 5:
+                return new SlowDown();               
         }
         return null;
     }
+
     @Override
-    public Nave getNave(int tipo){
+    public Nave getNave(int tipo) {
 
         return null;
     }
+
     @Override
-    public Enemigo getEnemigo(int tipo){
+    public Enemigo getEnemigo(int tipo) {
         return null;
     }
 

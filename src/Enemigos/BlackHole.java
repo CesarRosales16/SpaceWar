@@ -4,26 +4,28 @@
  * and open the template in the editor.
  */
 package Enemigos;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.*;
+import org.newdawn.slick.geom.Rectangle;
+
 /**
  *
- * @author Alejandro Olmedo <00097017@uca.edu.sv>
+ * @author Cesar Rosales <00060917@uca.edu.sv>
  */
-public class Alien extends Enemigo{
+public class BlackHole extends Enemigo{
     @Override
     public void Iniciar(int WIDHT){
         this.posicionX=WIDHT;
-        this.posicionY =80;
-        this.ataque=60;
-        this.vida=50;
-        this.velocidad=2;
-        this.puntuacion=100;
+        this.posicionY = 80;
+        this.ataque = 1000000000;
+        this.vida = 800;
+        this.velocidad = 1;
+        this.puntuacion=2000;
         try {
-            this.imagen=new Image("Img/Alien.png");
+            this.imagen = new Image("Img/Hoyo.png");
         } catch (SlickException ex) {
             Logger.getLogger(Alien.class.getName()).log(Level.SEVERE, null, ex);
         }

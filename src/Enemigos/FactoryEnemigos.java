@@ -21,6 +21,8 @@ public class FactoryEnemigos implements  AbstractFactory{
                 return new Alien();
             case 2:
                 return new Asteroide();
+            case 3:
+                return new BlackHole(); 
         }
         return null;
     }

@@ -6,7 +6,10 @@ import Enemigos.Enemigo;
 import Enemigos.FactoryEnemigos;
 import Naves.Nave;
 import PowerUps.PowerUp;
+import dao.UsuariosDao;
 import game.Fin;
+import game.Score;
+import game.TopTen;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 import modelo.Usuarios;
@@ -32,6 +35,7 @@ public class JuegoColision extends BasicGame {
     private boolean choque = false;
     private boolean finJuego = false;
     private boolean disparo = false;
+    private boolean flagHechiza=true;
     private boolean disparoDisponible = true;
     private Image misil;
     private Input entrada;
@@ -40,6 +44,7 @@ public class JuegoColision extends BasicGame {
     float misilX = 0, misilY = 0;
     final static int WIDHT = 900, HEIGHT = 600;
     int flagMov = 0;
+    float alpha = 0;
     public int puntuacion = 0;
     AbstractFactory factory = FactoryProducer.getFactory("Naves");
 
@@ -74,20 +79,28 @@ public class JuegoColision extends BasicGame {
 
     @Override
     public void update(GameContainer gc, int i) throws SlickException {
-        actualizarNaveJugador();
-        actualizarNaveEnemigos();
-        spawnearEnemigos();
-        spawnearPowerUps();
-        activarPowerUp();
+        if (!gc.isPaused()) {
+            actualizarNaveJugador();
+            actualizarNaveEnemigos();
+            spawnearEnemigos();
+            spawnearPowerUps();
+            activarPowerUp();
+        }
+        if (gc.getInput().isKeyPressed(Input.KEY_P)) {
+            gc.setPaused(!gc.isPaused());
+        }
+
 //        explosionAnimation.update(2000);
 //        eliminar();
-
     }
 
     @Override
     public void render(GameContainer gc, Graphics grafico) throws SlickException {
         grafico.drawString("Salud: " + nave.vida, 20, HEIGHT - 40);
-        grafico.drawString("Puntuacion: " + puntuacion, WIDHT - 150, HEIGHT - 40);
+        grafico.drawString("Puntuacion: " + puntuacion, WIDHT - 200, HEIGHT - 40);
+        grafico.drawString("Putuacion Maxima obtenida: " + jugador.getPuntuacionMaxima(), 20, 40);
+        grafico.drawString("Astronauta: " + jugador.getUsuario(), WIDHT - 300, 20);
+        grafico.drawString("Leks: " + jugador.getLeks(), WIDHT/2, 40);
         nave.imagen.draw(nave.posicionX, nave.posicionY);
         //grafico.drawRect(nave.Hitbox.getX(), nave.Hitbox.getY(), nave.Hitbox.getWidth(), nave.Hitbox.getHeight());
         contExplosion++;
@@ -111,10 +124,24 @@ public class JuegoColision extends BasicGame {
             p.imagen.draw(p.posicionX, p.posicionY);
             //grafico.drawRect(p.Hitbox.getX(), p.Hitbox.getY(), p.Hitbox.getWidth(), p.Hitbox.getHeight());
         }
-        verificar(grafico);
-        if (finJuego) {
-
+        if (!gc.isPaused()) {
+            verificar(grafico);
         }
+        if (finJuego) {
+            if(flagHechiza){
+                UsuariosDao dao = new UsuariosDao();
+                if (puntuacion > jugador.getPuntuacionMaxima()) {
+                    dao.updatePuntuacionMaxima(puntuacion, jugador);
+                }
+                dao.updateLeksSumar(puntuacion, jugador);
+                jugador=dao.read(jugador.getUsuario());
+                flagHechiza=false;
+            }
+            grafico.drawString("Putuacion Maxima obtenida: " + jugador.getPuntuacionMaxima(), 20, 40);
+            grafico.drawString("Leks: " + jugador.getLeks(), WIDHT/2, 40);
+            gc.setPaused(true);
+        }
+
     }
 
     private void spawnearEnemigos() {
@@ -124,9 +151,11 @@ public class JuegoColision extends BasicGame {
             AbstractFactory factory = FactoryProducer.getFactory("Enemigos");
             if (randomNum < 0.3) {
                 enemigo = 2;
+            }if(randomNum < 0.1){
+                enemigo=3;
             }
             Enemigo enem = factory.getEnemigo(enemigo);
-            int posicionBrandom = ThreadLocalRandom.current().nextInt(0, HEIGHT);
+            int posicionBrandom = ThreadLocalRandom.current().nextInt(0, HEIGHT-50);
             enem.Iniciar(WIDHT);
             enem.posicionY = posicionBrandom;
             enem.enemigoRect.setY(enem.posicionY);
@@ -150,7 +179,7 @@ public class JuegoColision extends BasicGame {
         if (randomNum < 0.5) {
             PowerUp power;
             AbstractFactory factory = FactoryProducer.getFactory("PowerUps");
-            int powerBrandom = ThreadLocalRandom.current().nextInt(1, 3 + 1);
+            int powerBrandom = ThreadLocalRandom.current().nextInt(1, 5 + 1);
             switch (powerBrandom) {
                 case 1:
                     powerUpEscogido = 1;
@@ -161,9 +190,15 @@ public class JuegoColision extends BasicGame {
                 case 3:
                     powerUpEscogido = 3;
                     break;
+                case 4:
+                    powerUpEscogido= 4;
+                    break;
+                case 5:
+                    powerUpEscogido= 5;
+                    break;
             }
             power = factory.getPowerUp(powerUpEscogido);
-            int posicionBrandom = ThreadLocalRandom.current().nextInt(0, HEIGHT);
+            int posicionBrandom = ThreadLocalRandom.current().nextInt(0, HEIGHT-50);
             power.Iniciar(WIDHT);
             power.posicionY = posicionBrandom;
             power.Hitbox.setY(power.posicionY);
@@ -221,10 +256,10 @@ public class JuegoColision extends BasicGame {
         }
         for (Enemigo e : listaEnemigos) {
             if (nave.Hitbox.intersects(e.enemigoRect)) {
-                nave.vida -= 60;
+                nave.vida -= e.ataque;
             }
         }
-        
+
         if (nave.vida < 0) {
             grafico.drawString("FIN DEL JUEGO", WIDHT / 2, HEIGHT / 2);
             finJuego = true;
@@ -232,12 +267,16 @@ public class JuegoColision extends BasicGame {
         }
         return grafico;
     }
-    private void activarPowerUp(){
-        for(PowerUp p: listaPowerUps){
-            if (nave.Hitbox.intersects(p.Hitbox)){
-                nave.vida+=p.vidaExtra;
-                nave.velocidad+=p.velocidadExtra;
-                puntuacion+=p.puntuacionExtra;
+
+    private void activarPowerUp() {
+        for (PowerUp p : listaPowerUps) {
+            if (nave.Hitbox.intersects(p.Hitbox)) {
+                nave.vida += p.vidaExtra;
+                if(nave.velocidad-p.velocidadExtra>0){
+                    nave.velocidad += p.velocidadExtra;
+                }
+                nave.velocidadBala+= p.velocidaExtraMisil;
+                puntuacion += p.puntuacionExtra;
                 listaPowerUpsRemovidos.add(p);
             }
         }

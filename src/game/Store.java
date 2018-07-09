@@ -151,6 +151,7 @@ public class Store extends javax.swing.JFrame {
         }
         try {
             final int WIDHT = 900, HEIGHT = 600;
+            setVisible(false);
             AppGameContainer gc = new AppGameContainer(new JuegoColision(naveSeleccionada, jugador));
             gc.setDisplayMode(WIDHT, HEIGHT, false);
             gc.setVSync(true);

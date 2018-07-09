@@ -14,7 +14,7 @@ import org.newdawn.slick.geom.Rectangle;
  */
 public abstract class PowerUp {
     public int vidaExtra=0, puntuacionExtra=0, posicionX=0, posicionY=0;
-    public double velocidad=0, velocidadExtra=0;
+    public double velocidad=0, velocidadExtra=0, velocidaExtraMisil=0;
     public Image imagen;
     public Rectangle Hitbox;
     abstract public void Iniciar(int WIDHT);

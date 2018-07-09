@@ -19,7 +19,7 @@ public class Coin extends PowerUp{
     @Override
     public void Iniciar(int WIDHT){
         this.posicionX = WIDHT;
-        this.puntuacionExtra=5000;
+        this.puntuacionExtra=3000;
         this.velocidad = 3.5;
         try {
             this.imagen = new Image("Img/Coin.gif");
